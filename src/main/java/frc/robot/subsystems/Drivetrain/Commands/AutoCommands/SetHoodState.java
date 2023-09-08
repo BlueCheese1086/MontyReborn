@@ -1,0 +1,19 @@
+package frc.robot.subsystems.Drivetrain.Commands.AutoCommands;
+
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Tower.Tower;
+
+public class SetHoodState extends CommandBase {
+    public final Tower tower;
+    public final boolean state;
+
+    public SetHoodState(Tower tower, boolean state) {
+        this.tower = tower;
+        this.state = state;
+    }
+
+    @Override
+    public void execute() {
+        tower.setHood(state);
+    }
+}

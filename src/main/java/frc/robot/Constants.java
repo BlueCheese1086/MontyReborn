@@ -7,10 +7,10 @@ package frc.robot;
 public final class Constants {
     public class DriveConstants {
         // Motor IDs
-        public static final int FrontLeftID = 0;
-        public static final int FrontRightID = 0; // inverted
-        public static final int BackLeftID = 0; // follows frontLeft
-        public static final int BackRightID = 0; // follows backRight
+        public static final int FrontLeftID = 1;
+        public static final int FrontRightID = 2;
+        public static final int BackLeftID = 3;
+        public static final int BackRightID = 4;
 
         // Other constants
         public static final double deadband = 0.02;
@@ -19,21 +19,21 @@ public final class Constants {
     }
 
     public class IntakeConstants {
-        // Motor IDs
-        public static final int FrontRollerID = 0; // follows bottomTrack
-        public static final int LeftIndexerID = 0; // inverted, follows bottomTrack
-        public static final int RightIndexerID = 0; // follows bottomTrack
-        public static final int BottomTrackID = 0;
+        // Motor/Solenoid IDs
+        public static final int FrontRollerID = 11;
+        public static final int LeftIndexerID = 12;
+        public static final int RightIndexerID = 13;
+        public static final int BottomTrackID = 14;
         public static final int LeftSolenoidID = 0;
-        public static final int RightSolenoidID = 0; // follows leftSolenoid
+        public static final int RightSolenoidID = 0;
     }
     
     public class TowerConstants {
-        // Motor IDs
+        // Motor/Solenoid IDs
+        public static final int TopRoller1ID = 21;
+        public static final int TopRoller2ID = 22;
+        public static final int BottomRoller1ID = 23;
+        public static final int BottomRoller2ID = 24;
         public static final int HoodSolenoidID = 0;
-        public static final int TopRoller1ID = 0;
-        public static final int TopRoller2ID = 0; // inverted, follows topRoller1
-        public static final int BottomRoller1ID = 0; // follows topRoller1
-        public static final int BottomRoller2ID = 0; // inverted, follows topRoller1
     }
 }

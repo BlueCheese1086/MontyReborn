@@ -30,10 +30,9 @@ public final class Constants {
     
     public class TowerConstants {
         // Motor/Solenoid IDs
-        public static final int TopRoller1ID = 21;
-        public static final int TopRoller2ID = 22;
-        public static final int BottomRoller1ID = 23;
-        public static final int BottomRoller2ID = 24;
+        public static final int LeftTopRollerID = 21;
+        public static final int RightTopRollerID = 22;
+        public static final int BottomRollerID = 23;
         public static final int HoodSolenoidID = 0;
     }
 }

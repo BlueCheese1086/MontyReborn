@@ -1,8 +1,7 @@
 package frc.robot.subsystems.Intake;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -17,37 +16,29 @@ public class Intake extends SubsystemBase {
     Solenoid rightSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, IntakeConstants.RightSolenoidID);
 
     // Creates each motor controller as CANSparkMax objects.
-    CANSparkMax frontRoller = new CANSparkMax(IntakeConstants.FrontRollerID, MotorType.kBrushless);
-    CANSparkMax leftIndexer = new CANSparkMax(IntakeConstants.LeftIndexerID, MotorType.kBrushless);
-    CANSparkMax rightIndexer = new CANSparkMax(IntakeConstants.RightIndexerID, MotorType.kBrushless);
-    CANSparkMax bottomTrack = new CANSparkMax(IntakeConstants.BottomTrackID, MotorType.kBrushless);
+    TalonSRX frontRoller = new TalonSRX(IntakeConstants.FrontRollerID);
+    TalonSRX leftIndexer = new TalonSRX(IntakeConstants.LeftIndexerID);
+    TalonSRX rightIndexer = new TalonSRX(IntakeConstants.RightIndexerID);
 
     /** Creates a new Intake subsystem */
     public Intake() {
         // Applying settings to each motor
-        CANSparkMax[] motors = {frontRoller, leftIndexer, rightIndexer, bottomTrack};
-        for (CANSparkMax motor : motors) {
-            motor.restoreFactoryDefaults();
-            motor.setIdleMode(IdleMode.kBrake);
-            motor.setSmartCurrentLimit(45);
-        }
-
-        frontRoller.follow(bottomTrack);
-        leftIndexer.follow(bottomTrack, true);
-        rightIndexer.follow(bottomTrack);
+        leftIndexer.follow(frontRoller);
+        leftIndexer.setInverted(true);
+        rightIndexer.follow(frontRoller);
     }
 
     /** Sets the speed of the intake. */
     public void setSpeed(double speed) {
         SmartDashboard.putNumber("Intake Speed", speed);
 
-        // Only sets the speed of the bottom track because all of the other motors follow it.
-        bottomTrack.set(speed);
+        // Only sets the speed of the front roller because all of the other motors follow it.
+        frontRoller.set(ControlMode.PercentOutput, speed);
     }
 
     /** Gets the speed of the intake.  Doesn't use encoders, so very unreliable. */
     public double getSpeed() {
-        return bottomTrack.get();
+        return frontRoller.getMotorOutputPercent();
     }
 
     /** Sets the state of the solenoids attached to the intake.  true is open, false is closed. */

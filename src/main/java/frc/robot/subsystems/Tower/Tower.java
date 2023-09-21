@@ -1,10 +1,8 @@
 package frc.robot.subsystems.Tower;
 
-import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -16,38 +14,32 @@ public class Tower {
     Solenoid hoodSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, TowerConstants.HoodSolenoidID);
 
     // Creates motor controllers as TalonFXs and CANSparkMaxes
-    TalonFX topRoller1 = new TalonFX(TowerConstants.TopRoller1ID);
-    TalonFX topRoller2 = new TalonFX(TowerConstants.TopRoller2ID);
-    CANSparkMax bottomRoller1 = new CANSparkMax(TowerConstants.BottomRoller1ID, MotorType.kBrushless);
-    CANSparkMax bottomRoller2 = new CANSparkMax(TowerConstants.BottomRoller2ID, MotorType.kBrushless);
+    TalonFX leftTopRoller = new TalonFX(TowerConstants.LeftTopRollerID);
+    TalonFX rightTopRoller = new TalonFX(TowerConstants.RightTopRollerID);
+    
+    TalonSRX bottomRoller = new TalonSRX(TowerConstants.BottomRollerID);
     
     /** Creates a new Tower subsystem */
     public Tower() {
         // Applying settings to each motor
-        CANSparkMax[] motors = {bottomRoller1, bottomRoller2};
-        for (CANSparkMax motor : motors) {
-            motor.restoreFactoryDefaults();
-            motor.setIdleMode(IdleMode.kBrake);
-            motor.setSmartCurrentLimit(45);
-        }
+        rightTopRoller.follow(leftTopRoller);
+        rightTopRoller.setInverted(true);
 
-        topRoller2.follow(topRoller1);
-        topRoller2.setInverted(true);
-
-        bottomRoller2.follow(bottomRoller1, true);
+        // If the backup motor is in use, uncomment this.
+        //bottomRoller.setInverted(true);
     }
 
     /** Sets the speed of the tower. */
     public void setSpeed(double speed) {
         SmartDashboard.putNumber("Tower Speed", speed);
 
-        topRoller1.set(TalonFXControlMode.PercentOutput, speed);
-        bottomRoller1.set(speed);
+        leftTopRoller.set(ControlMode.PercentOutput, speed);
+        bottomRoller.set(ControlMode.PercentOutput, speed);
     }
 
     /** Returns the average speed of the motors.  Doesn't use encoders, so very unreliable. */
     public double getSpeed() {
-        return (bottomRoller1.get() + topRoller1.getMotorOutputPercent()) / 2;
+        return (bottomRoller.getMotorOutputPercent() + leftTopRoller.getMotorOutputPercent()) / 2;
     }
 
     /** Sets the state of the hood. true is closed, false is open. */

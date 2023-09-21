@@ -19,7 +19,7 @@ public final class Constants {
     }
 
     public class IntakeConstants {
-        / Motor/Solenoid IDs
+        // Motor/Solenoid IDs
         public static final int FrontRollerID = 11;
         public static final int LeftIndexerID = 12;
         public static final int RightIndexerID = 13;

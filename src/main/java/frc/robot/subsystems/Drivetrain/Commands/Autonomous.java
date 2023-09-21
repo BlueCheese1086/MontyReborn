@@ -13,15 +13,16 @@ import frc.robot.subsystems.Tower.Tower;
 
 public final class Autonomous extends SequentialCommandGroup {
   public Autonomous(Drivetrain drivetrain, Intake intake, Tower tower) {
+    // Creates a list of commands that will run sequentially.
     addCommands(
-      new DriveTime(drivetrain, 1, 2),
-      new TurnTime(drivetrain, 1, 3),
-      new SetIntakeState(intake, true),
-      new RunIntakeTime(intake, 1, 2),
-      new SetIntakeState(intake, false),
-      new SetHoodState(tower, true),
-      new RunTowerTime(tower, 1, 3),
-      new SetHoodState(tower, false)
+      new DriveTime(drivetrain, 1, 2), // Drive the robot at max speed for 2 seconds.
+      new TurnTime(drivetrain, 1, 3), // Turns the robot at max speed for 3 seconds.
+      new SetIntakeState(intake, true), // Sets the Solenoid controlling the intake to true, opening it.
+      new RunIntakeTime(intake, 1, 2), // Runs the intake motors at max speed for 2 seconds.
+      new SetIntakeState(intake, false), // Sets the Solenoid controlling the intake to false, closing it.
+      new SetHoodState(tower, true), // Sets the Solenoid controlling the hood to true, opening it.
+      new RunTowerTime(tower, 1, 3), // Runs the tower motors at max speed for 3 seconds.
+      new SetHoodState(tower, false) // Sets the Solenoid controlling the hood to false, closing it.
     );
   }
 }

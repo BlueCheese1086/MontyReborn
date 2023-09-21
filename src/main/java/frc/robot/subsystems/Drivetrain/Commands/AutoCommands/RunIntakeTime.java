@@ -9,6 +9,10 @@ public class RunIntakeTime extends CommandBase {
     private final double seconds;
     private double end;
 
+    /**
+     * Creates a new RunIntakeTime command.
+     * This command runs the intake at a x speed for y seconds.
+     */
     public RunIntakeTime(Intake intake, double speed, double seconds) {
         this.intake = intake;
         this.speed = speed;
@@ -16,21 +20,25 @@ public class RunIntakeTime extends CommandBase {
     }
 
     @Override
+    /** Runs once on the first cycle the command is scheduled. */
     public void initialize() {
         this.end = System.currentTimeMillis() + seconds * 1000;
     }
 
     @Override
+    /** Runs every cycle.  Contains the code that the command will execute. */
     public void execute() {
         intake.setSpeed(speed);
     }
 
     @Override
+    /** Runs every cycle to see if the command should finish. */
     public boolean isFinished() {
         return System.currentTimeMillis() == end;
     }
 
     @Override
+    /** Runs once when the command finishes. */
     public void end(boolean interrupted) {
         intake.setSpeed(0);
     }

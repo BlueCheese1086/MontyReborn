@@ -7,12 +7,17 @@ public class SetIntakeState extends CommandBase {
     public final Intake intake;
     public final boolean state;
 
+    /**
+     * Creates a new SetIntakeState command.
+     * This sets the state of the intake to state.
+     */
     public SetIntakeState(Intake intake, boolean state) {
         this.intake = intake;
         this.state = state;
     }
 
     @Override
+    /** Runs every cycle.  Contains the code that the command will execute. */
     public void execute() {
         intake.setState(state);
     }

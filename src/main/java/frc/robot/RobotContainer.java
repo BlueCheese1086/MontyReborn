@@ -60,6 +60,6 @@ public class RobotContainer {
 
   /** Passes the teleop command to the {@link Robot} class. */
   public Command getTeleopCommand() {
-    return new ArcadeDrive(drivetrain, () -> -xbox.getLeftY(), () -> xbox.getRightX());
+    return new ArcadeDrive(drivetrain, () -> -xbox.getLeftY(), () -> -xbox.getRightX());
   }
 }

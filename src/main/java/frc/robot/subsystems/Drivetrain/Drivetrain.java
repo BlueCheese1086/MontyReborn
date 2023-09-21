@@ -1,21 +1,32 @@
 package frc.robot.subsystems.Drivetrain;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants.DriveConstants;
 
 public class Drivetrain extends SubsystemBase {
+    // Creates each motor controller as CANSparkMax objects.
     private CANSparkMax frontLeft = new CANSparkMax(DriveConstants.FrontLeftID, MotorType.kBrushless);
     private CANSparkMax frontRight = new CANSparkMax(DriveConstants.FrontRightID, MotorType.kBrushless);
     private CANSparkMax backLeft = new CANSparkMax(DriveConstants.BackLeftID, MotorType.kBrushless);
     private CANSparkMax backRight = new CANSparkMax(DriveConstants.BackRightID, MotorType.kBrushless);
 
     public Drivetrain() {
-        frontRight.setInverted(true);
+        // Applying settings to each motor
+        // Creates a list of motors to easily manipulate settings.
+        CANSparkMax[] motors = {frontLeft, frontRight, backLeft, backRight};
+        for (CANSparkMax motor : motors) {
+            motor.restoreFactoryDefaults();
+            motor.setIdleMode(IdleMode.kBrake);
+            motor.setSmartCurrentLimit(45);
+        }
+        
         backLeft.follow(frontLeft);
         backRight.follow(frontRight);
     }
@@ -47,6 +58,10 @@ public class Drivetrain extends SubsystemBase {
             leftSpeed /= saturatedInput;
             rightSpeed /= saturatedInput;
         }
+
+        // Puts the left and right speeds onto SmartDashboard.
+        SmartDashboard.putNumber("LeftSpeed", leftSpeed * DriveConstants.maxSpeed);
+        SmartDashboard.putNumber("RightSpeed", rightSpeed * DriveConstants.maxSpeed);
 
         // Sets the speed of the motors.
         frontLeft.set(leftSpeed * DriveConstants.maxSpeed);

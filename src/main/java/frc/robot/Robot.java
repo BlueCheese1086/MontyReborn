@@ -13,6 +13,9 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
  * the package after creating this project, you must also update the build.gradle file in the
  * project.
+ * 
+ * This class may look different than the auto-generated one because I looked into some of the
+ * TimedRobot functions, and found a better way to schedule commands.
  */
 public class Robot extends TimedRobot {
   // Decares the various commands to be used later.
@@ -30,7 +33,10 @@ public class Robot extends TimedRobot {
     this.teleopCommand = robotContainer.getTeleopCommand();
   }
 
-  /** This function is called every 20 ms, no matter the mode. */
+  /**
+   * This function is called every 20 ms, no matter the mode.
+   * This duty cycle can be changed by adding a constructor to this class.
+   */
   @Override
   public void robotPeriodic() {
     // Runs the Scheduler.
@@ -44,6 +50,7 @@ public class Robot extends TimedRobot {
   }
 
   /** This function is once when the robot exits Autonomous mode. */
+  // This command is not used in the auto-generated file.
   @Override
   public void autonomousExit() {
     autonomousCommand.cancel();

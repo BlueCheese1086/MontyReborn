@@ -19,10 +19,7 @@ public class ArcadeDrive extends CommandBase {
 
   /**
    * Creates a new ArcadeDrive command.
-   *
-   * @param drivetrain The subsystem used by this command.
-   * @param xSpeedSupplier The lambda supplier for the forwards velocity of the robot.
-   * @param zSpeedSupplier The lambda supplier for the turn velocity of the robot.
+   * This command uses the arcadeDrive function of the Drivetrain class to drive the robot in all sorts of directions.
    */
   public ArcadeDrive(Drivetrain drivetrain, Supplier<Double> xSpeedSupplier, Supplier<Double> zTurnSupplier) {
     this.drivetrain = drivetrain;
@@ -31,8 +28,8 @@ public class ArcadeDrive extends CommandBase {
     addRequirements(drivetrain);
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
+  /** Runs every cycle.  Contains the code that the command will execute. */
   public void execute() {
     drivetrain.arcadeDrive(xSpeedSupplier.get(), zTurnSupplier.get());
   }

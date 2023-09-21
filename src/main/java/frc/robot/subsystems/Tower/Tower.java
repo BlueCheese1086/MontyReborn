@@ -8,7 +8,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.TowerConstants;
 
 public class Tower {
@@ -39,6 +39,8 @@ public class Tower {
 
     /** Sets the speed of the tower. */
     public void setSpeed(double speed) {
+        SmartDashboard.putNumber("Tower Speed", speed);
+
         topRoller1.set(TalonFXControlMode.PercentOutput, speed);
         bottomRoller1.set(speed);
     }
@@ -50,6 +52,7 @@ public class Tower {
 
     /** Sets the state of the hood. true is closed, false is open. */
     public void setHood(boolean state) {
+        SmartDashboard.putString("Hood", state ? "Closed" : "Open");
         hoodSolenoid.set(state);
     }
 

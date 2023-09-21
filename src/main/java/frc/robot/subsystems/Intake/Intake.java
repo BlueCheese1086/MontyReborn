@@ -6,6 +6,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants.IntakeConstants;
@@ -38,6 +39,8 @@ public class Intake extends SubsystemBase {
 
     /** Sets the speed of the intake. */
     public void setSpeed(double speed) {
+        SmartDashboard.putNumber("Intake Speed", speed);
+
         // Only sets the speed of the bottom track because all of the other motors follow it.
         bottomTrack.set(speed);
     }
@@ -49,6 +52,8 @@ public class Intake extends SubsystemBase {
 
     /** Sets the state of the solenoids attached to the intake.  true is open, false is closed. */
     public void setState(boolean state) {
+        SmartDashboard.putString("Intake State", state ? "Open" : "Closed");
+
         leftSolenoid.set(state);
         rightSolenoid.set(state);
     }

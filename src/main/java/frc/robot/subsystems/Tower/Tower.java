@@ -11,7 +11,7 @@ import frc.robot.Constants.TowerConstants;
 
 public class Tower {
     // Creates Solenoids as well, Solenoids
-    Solenoid hood = new Solenoid(PneumaticsModuleType.CTREPCM, TowerConstants.SolenoidID);
+    Solenoid hood = new Solenoid(PneumaticsModuleType.REVPH, TowerConstants.SolenoidID);
 
     // Creates motor controllers as TalonFXs and CANSparkMaxes
     TalonFX leftTopRoller = new TalonFX(TowerConstants.LeftTopRollerID);
@@ -26,7 +26,7 @@ public class Tower {
         leftTopRoller.configFactoryDefault();
         bottomRoller.configFactoryDefault();
 
-        rightTopRoller.setInverted(true);
+        leftTopRoller.setInverted(true);
 
         hood.set(true);
 
@@ -36,10 +36,10 @@ public class Tower {
 
     /** Sets the speed of the tower. */
     public void setSpeed(double speed) {
-        SmartDashboard.putNumber("Tower Speed", speed * 0.3);
-        leftTopRoller.set(ControlMode.PercentOutput, speed * 0.3);
-        rightTopRoller.set(ControlMode.PercentOutput, speed * 0.3);
-        bottomRoller.set(ControlMode.PercentOutput, speed * 0.3);
+        SmartDashboard.putNumber("Tower Speed", speed * 0.6);
+        leftTopRoller.set(ControlMode.PercentOutput, speed * 0.6);
+        rightTopRoller.set(ControlMode.PercentOutput, speed * 0.6);
+        bottomRoller.set(ControlMode.PercentOutput, speed * 0.6);
     }
 
     /** Returns the average speed of the motors.  Doesn't use encoders, so very unreliable. */

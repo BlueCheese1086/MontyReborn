@@ -12,7 +12,7 @@ import frc.robot.Constants.IntakeConstants;
 
 public class Intake extends SubsystemBase {
     // Creates solenoids as well, Solenoid objects.
-    Solenoid intake = new Solenoid(PneumaticsModuleType.CTREPCM, IntakeConstants.SolenoidID);
+    Solenoid intake = new Solenoid(PneumaticsModuleType.REVPH, IntakeConstants.SolenoidID);
 
     // Creates each motor controller as CANSparkMax objects.
     TalonSRX frontRoller = new TalonSRX(IntakeConstants.FrontRollerID);

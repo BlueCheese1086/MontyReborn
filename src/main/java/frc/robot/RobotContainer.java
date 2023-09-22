@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -29,7 +30,8 @@ public class RobotContainer {
   // Creates the remote that controls the robot.
   // Found a new type of XboxController class that makes it a lot easier to make triggers!
   // It even has all of the functionality from the plain XboxController class!
-  private final CommandXboxController xbox = new CommandXboxController(0);
+  // private final CommandXboxController xbox = new CommandXboxController(0);
+  private final CommandJoystick joystick = new CommandJoystick(0);
 
   /** The container for the robot. Contains subsystems, IO devices, and commands. */
   public RobotContainer() {
@@ -41,16 +43,16 @@ public class RobotContainer {
   private void configureBindings() {
     // The buttons are bound in groups.  Buttons x and a are the group for the intake, and y and b are the group for the tower.
     // The later letter toggles the subsystem, and the earlier letter runs the subsystem.
-    xbox.x().onTrue(new SetIntakeState(intake, !intake.getState()));
-    xbox.a().whileTrue(new RunIntake(intake, 1));
-    xbox.y().onTrue(new SetHoodState(tower, !tower.getHood()));
-    xbox.b().whileTrue(new RunTower(tower, 1));
+    joystick.button(3).onTrue(new SetIntakeState(intake, !intake.getState()));
+    joystick.button(1).whileTrue(new RunIntake(intake, 1));
+    joystick.button(4).onTrue(new SetHoodState(tower, !tower.getHood()));
+    joystick.button(2).whileTrue(new RunTower(tower, 1));
 
     // The exception to this method is the left bumper, as it runs all of the subsystems in reverse, and opens all of the solenoids.
-    xbox.leftBumper().whileTrue(new SetIntakeState(intake, true))
-                     .whileTrue(new RunIntake(intake, -1))
-                     .whileTrue(new SetHoodState(tower, true))
-                     .whileTrue(new RunTower(tower, -1));
+    joystick.button(5).whileTrue(new SetIntakeState(intake, true));
+    joystick.button(5).whileTrue(new RunIntake(intake, -1));
+    joystick.button(5).whileTrue(new SetHoodState(tower, true));
+    joystick.button(5).whileTrue(new RunTower(tower, -1));
   }
 
   /** Passes the autonomous command to the {@link Robot} class. */
@@ -60,6 +62,6 @@ public class RobotContainer {
 
   /** Passes the teleop command to the {@link Robot} class. */
   public Command getTeleopCommand() {
-    return new ArcadeDrive(drivetrain, () -> -xbox.getLeftY(), () -> -xbox.getRightX());
+    return new ArcadeDrive(drivetrain, () -> -joystick.getRawAxis(1), () -> -joystick.getRawAxis(4));
   }
 }

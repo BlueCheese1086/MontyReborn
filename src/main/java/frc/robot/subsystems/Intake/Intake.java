@@ -12,8 +12,7 @@ import frc.robot.Constants.IntakeConstants;
 
 public class Intake extends SubsystemBase {
     // Creates solenoids as well, Solenoid objects.
-    Solenoid leftSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, IntakeConstants.LeftSolenoidID);
-    Solenoid rightSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, IntakeConstants.RightSolenoidID);
+    Solenoid intake = new Solenoid(PneumaticsModuleType.CTREPCM, IntakeConstants.SolenoidID);
 
     // Creates each motor controller as CANSparkMax objects.
     TalonSRX frontRoller = new TalonSRX(IntakeConstants.FrontRollerID);
@@ -26,14 +25,16 @@ public class Intake extends SubsystemBase {
         leftIndexer.follow(frontRoller);
         leftIndexer.setInverted(true);
         rightIndexer.follow(frontRoller);
+
+        intake.set(true);
     }
 
     /** Sets the speed of the intake. */
     public void setSpeed(double speed) {
-        SmartDashboard.putNumber("Intake Speed", speed);
+        SmartDashboard.putNumber("Intake Speed", speed * 0.3);
 
         // Only sets the speed of the front roller because all of the other motors follow it.
-        frontRoller.set(ControlMode.PercentOutput, speed);
+        frontRoller.set(ControlMode.PercentOutput, speed * 0.3);
     }
 
     /** Gets the speed of the intake.  Doesn't use encoders, so very unreliable. */
@@ -45,13 +46,12 @@ public class Intake extends SubsystemBase {
     public void setState(boolean state) {
         SmartDashboard.putString("Intake State", state ? "Open" : "Closed");
 
-        leftSolenoid.set(state);
-        rightSolenoid.set(state);
+        intake.set(state);
     }
 
     /** Gets the state of the solenoids. */
     public boolean getState() {
         // Only gets the state of one solenoid as they are manipulated together.
-        return leftSolenoid.get();
+        return intake.get();
     }
 }

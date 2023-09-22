@@ -11,7 +11,7 @@ import frc.robot.Constants.TowerConstants;
 
 public class Tower {
     // Creates Solenoids as well, Solenoids
-    Solenoid hoodSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, TowerConstants.HoodSolenoidID);
+    Solenoid hood = new Solenoid(PneumaticsModuleType.CTREPCM, TowerConstants.SolenoidID);
 
     // Creates motor controllers as TalonFXs and CANSparkMaxes
     TalonFX leftTopRoller = new TalonFX(TowerConstants.LeftTopRollerID);
@@ -22,8 +22,13 @@ public class Tower {
     /** Creates a new Tower subsystem */
     public Tower() {
         // Applying settings to each motor
-        rightTopRoller.follow(leftTopRoller);
+        rightTopRoller.configFactoryDefault();
+        leftTopRoller.configFactoryDefault();
+        bottomRoller.configFactoryDefault();
+
         rightTopRoller.setInverted(true);
+
+        hood.set(true);
 
         // If the backup motor is in use, uncomment this.
         //bottomRoller.setInverted(true);
@@ -31,10 +36,10 @@ public class Tower {
 
     /** Sets the speed of the tower. */
     public void setSpeed(double speed) {
-        SmartDashboard.putNumber("Tower Speed", speed);
-
-        leftTopRoller.set(ControlMode.PercentOutput, speed);
-        bottomRoller.set(ControlMode.PercentOutput, speed);
+        SmartDashboard.putNumber("Tower Speed", speed * 0.3);
+        leftTopRoller.set(ControlMode.PercentOutput, speed * 0.3);
+        rightTopRoller.set(ControlMode.PercentOutput, speed * 0.3);
+        bottomRoller.set(ControlMode.PercentOutput, speed * 0.3);
     }
 
     /** Returns the average speed of the motors.  Doesn't use encoders, so very unreliable. */
@@ -45,11 +50,11 @@ public class Tower {
     /** Sets the state of the hood. true is closed, false is open. */
     public void setHood(boolean state) {
         SmartDashboard.putString("Hood", state ? "Closed" : "Open");
-        hoodSolenoid.set(state);
+        hood.set(state);
     }
 
     /** Returns the state of the hood. */
     public boolean getHood() {
-        return hoodSolenoid.get();
+        return hood.get();
     }
 }

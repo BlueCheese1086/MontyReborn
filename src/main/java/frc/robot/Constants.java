@@ -24,8 +24,7 @@ public final class Constants {
         public static final int LeftIndexerID = 12;
         public static final int RightIndexerID = 13;
         public static final int BottomTrackID = 14;
-        public static final int LeftSolenoidID = 0;
-        public static final int RightSolenoidID = 0;
+        public static final int SolenoidID = 9;
     }
     
     public class TowerConstants {
@@ -33,6 +32,6 @@ public final class Constants {
         public static final int LeftTopRollerID = 21;
         public static final int RightTopRollerID = 22;
         public static final int BottomRollerID = 23;
-        public static final int HoodSolenoidID = 0;
+        public static final int SolenoidID = 8;
     }
 }

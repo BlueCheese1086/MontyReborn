@@ -16,4 +16,9 @@ public class SetIntakeState extends CommandBase {
     public void execute() {
         intake.setState(state);
     }
+
+    @Override
+    public void end(boolean interrupted) {
+        intake.setState(false);
+    }
 }

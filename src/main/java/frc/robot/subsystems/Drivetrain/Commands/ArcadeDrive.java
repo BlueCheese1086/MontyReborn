@@ -4,7 +4,7 @@
 
 package frc.robot.subsystems.Drivetrain.Commands;
 
-import java.util.function.Supplier;
+import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -14,14 +14,14 @@ import frc.robot.subsystems.Drivetrain.Drivetrain;
 public class ArcadeDrive extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Drivetrain drivetrain;
-  private final Supplier<Double> xSpeedSupplier;
-  private final Supplier<Double> zTurnSupplier;
+  private final DoubleSupplier xSpeedSupplier;
+  private final DoubleSupplier zTurnSupplier;
 
   /**
    * Creates a new ArcadeDrive command.
    * This command uses the arcadeDrive function of the Drivetrain class to drive the robot in all sorts of directions.
    */
-  public ArcadeDrive(Drivetrain drivetrain, Supplier<Double> xSpeedSupplier, Supplier<Double> zTurnSupplier) {
+  public ArcadeDrive(Drivetrain drivetrain, DoubleSupplier xSpeedSupplier, DoubleSupplier zTurnSupplier) {
     this.drivetrain = drivetrain;
     this.xSpeedSupplier = xSpeedSupplier;
     this.zTurnSupplier = zTurnSupplier;
@@ -31,6 +31,6 @@ public class ArcadeDrive extends CommandBase {
   @Override
   /** Runs every cycle.  Contains the code that the command will execute. */
   public void execute() {
-    drivetrain.arcadeDrive(xSpeedSupplier.get(), zTurnSupplier.get());
+    drivetrain.arcadeDrive(xSpeedSupplier.getAsDouble(), zTurnSupplier.getAsDouble());
   }
 }

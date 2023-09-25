@@ -16,4 +16,9 @@ public class SetHoodState extends CommandBase {
     public void execute() {
         tower.setHood(state);
     }
+
+    @Override
+    public void end(boolean interrupted) {
+        tower.setHood(false);
+    }
 }

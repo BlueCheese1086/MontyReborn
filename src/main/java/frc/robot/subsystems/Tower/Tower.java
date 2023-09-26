@@ -4,14 +4,14 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.TowerConstants;
 
 public class Tower {
-    // Creates Solenoids as well, Solenoids
-    Solenoid hood = new Solenoid(PneumaticsModuleType.REVPH, TowerConstants.SolenoidID);
+    // Initializes Pneumatics
+    Solenoid hood;
 
     // Creates motor controllers as TalonFXs and CANSparkMaxes
     TalonFX leftTopRoller = new TalonFX(TowerConstants.LeftTopRollerID);
@@ -20,7 +20,10 @@ public class Tower {
     TalonSRX bottomRoller = new TalonSRX(TowerConstants.BottomRollerID);
     
     /** Creates a new Tower subsystem */
-    public Tower() {
+    public Tower(PneumaticHub hub) {
+        // Creating the solenoid
+        hood = hub.makeSolenoid(TowerConstants.SolenoidID);
+
         // Applying settings to each motor
         rightTopRoller.configFactoryDefault();
         leftTopRoller.configFactoryDefault();

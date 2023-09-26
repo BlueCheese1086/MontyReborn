@@ -3,7 +3,7 @@ package frc.robot.subsystems.Intake;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -12,7 +12,7 @@ import frc.robot.Constants.IntakeConstants;
 
 public class Intake extends SubsystemBase {
     // Creates solenoids as well, Solenoid objects.
-    Solenoid intake = new Solenoid(PneumaticsModuleType.REVPH, IntakeConstants.SolenoidID);
+    Solenoid intake;
 
     // Creates each motor controller as CANSparkMax objects.
     TalonSRX frontRoller = new TalonSRX(IntakeConstants.FrontRollerID);
@@ -20,7 +20,9 @@ public class Intake extends SubsystemBase {
     TalonSRX rightIndexer = new TalonSRX(IntakeConstants.RightIndexerID);
 
     /** Creates a new Intake subsystem */
-    public Intake() {
+    public Intake(PneumaticHub hub) {
+        // Creating the solenoid
+        hub.makeSolenoid(IntakeConstants.SolenoidID);
         // Applying settings to each motor
         leftIndexer.follow(frontRoller);
         leftIndexer.setInverted(true);

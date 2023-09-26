@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.subsystems.Drivetrain.Drivetrain;
@@ -22,10 +23,13 @@ import frc.robot.subsystems.Tower.Commands.*;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
+  // Creates the pneumatics hub
+  private final PneumaticHub hub  = new PneumaticHub(31);
+  
   // Initializes the subsystems
   private final Drivetrain drivetrain = new Drivetrain();
-  private final Intake intake = new Intake();
-  private final Tower tower = new Tower();
+  private final Intake intake = new Intake(hub);
+  private final Tower tower = new Tower(hub);
 
   // Creates the remote that controls the robot.
   // Found a new type of XboxController class that makes it a lot easier to make triggers!

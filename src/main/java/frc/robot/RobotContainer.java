@@ -47,10 +47,18 @@ public class RobotContainer {
   private void configureBindings() {
     // The buttons are bound in groups.  Buttons x and a are the group for the intake, and y and b are the group for the tower.
     // The later letter toggles the subsystem, and the earlier letter runs the subsystem.
-    joystick.button(3).toggleOnTrue(new SetIntakeState(intake, true)); // X Button
-    joystick.button(1).whileTrue(new RunIntake(intake, 1)); // A Button
-    joystick.button(4).toggleOnTrue(new SetHoodState(tower, true)); // Y Button
-    joystick.button(2).whileTrue(new RunTower(tower, 1)); // B Button
+
+    /**
+     * Y - toggle shooter on/off
+     * A - shoot the ball (turn on feeder) and run intake rollers
+     * X - change hood
+     * B - toggle intake
+     */
+
+    joystick.button(3).toggleOnTrue(new SetIntakeState(intake, true)); // 
+    joystick.button(1).whileTrue(new RunIntake(intake, 1)); // 
+    joystick.button(4).toggleOnTrue(new SetHoodState(tower, true)); // 
+    joystick.button(2).whileTrue(new RunTower(tower, 1)); // 
 
     // The exception to this method is the left bumper, as it runs all of the subsystems in reverse, and opens all of the solenoids.
     joystick.button(5).whileTrue(new SetIntakeState(intake, true)); // Left Bumper
